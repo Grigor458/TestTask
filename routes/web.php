@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +21,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::resources([
+    'category' => CategoryController::class,
+    'post' => PostController::class,
+    'tag' => TagController::class,
+    'comment' => CommentController::class
+]);
+Route::get('getPostByTags/{data}', [PostController::class, 'getPostByTags'])->name('getPostByTags');
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
